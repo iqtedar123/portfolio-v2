@@ -5,6 +5,7 @@ import { css } from "@emotion/react";
 import ProfilePictureCard from "./ProfilePictureCard";
 import imgUrl from "../../assets/profilePicture.jpg";
 import { Breakpoints } from "../utils/breakpoints";
+import { Gradients } from "../utils/Gradients";
 
 const styles = {
   wrapper: css({
@@ -19,6 +20,7 @@ const styles = {
     },
   }),
   firstCard: css({
+    textAlign: "left",
     width: "60%",
     [Breakpoints.sm]: {
       width: "auto",
@@ -37,6 +39,15 @@ const Intro = () => {
         }
         subHeadingLevel={4}
         className={styles.firstCard}
+        gradient={Gradients.green}
+        renderNav={() => (
+          <p>
+            I am proficient with Web Application Architecture and have worked
+            with a good number of successful development teams to deploy various
+            web/mobile applications to the cloud. Please check out some of my
+            past public projects.
+          </p>
+        )}
       />
       <ProfilePictureCard imageSrc={imgUrl} />
     </section>

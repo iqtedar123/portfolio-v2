@@ -8,3 +8,11 @@ export const Gradients: Record<string, string> = {
   greenBlue:
     "linear-gradient(90deg, rgba(228,238,174,1) 0%, rgba(148,181,233,1) 93%)",
 };
+
+export const TextColors: Record<string, string> = {
+  blue: "white",
+  green: "white",
+  pink: "black",
+  greenPurple: "black",
+  greenBlue: "black",
+};
