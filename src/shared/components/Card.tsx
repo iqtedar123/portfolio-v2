@@ -78,7 +78,7 @@ const getStyles = ({ gradient }: { gradient: string }) => ({
 });
 
 interface Props {
-  title: string;
+  title?: string;
   titleHeadingLevel?: HeadingLevel;
   subHeading?: string;
   subHeadingLevel?: HeadingLevel;
@@ -108,12 +108,14 @@ const Card = ({
       {({ css, cx }) => (
         <div css={cx(css(styles.wrapper), css(className))}>
           {Icon && (
-            <a css={styles.iconWrapper} href={url}>
+            <a css={styles.iconWrapper} href={url} target="_">
               <Icon />
             </a>
           )}
           <div css={styles.content}>
-            <Heading headingLevel={titleHeadingLevel}>{title}</Heading>
+            {title && (
+              <Heading headingLevel={titleHeadingLevel}>{title}</Heading>
+            )}
             {subHeading && (
               <Heading headingLevel={subHeadingLevel}>{subHeading}</Heading>
             )}
