@@ -11,6 +11,7 @@ import Card from "../shared/components/Card";
 import { Gradients } from "../shared/utils/Gradients";
 import Keywords from "../shared/components/Keywords";
 import NorthEastRoundedIcon from "@mui/icons-material/NorthEastRounded";
+import { Breakpoints } from "../shared/utils/breakpoints";
 
 const fetchProject = async (
   id: string,
@@ -38,6 +39,9 @@ const styles = {
   }),
   wrapper: css({
     maxWidth: "70%",
+    [Breakpoints.sm]: {
+      maxWidth: "fit-content",
+    },
   }),
   image: css({
     width: "100%",

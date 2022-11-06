@@ -37,6 +37,7 @@ const Project = ({ project }: { project: ProjectItem }) => {
       className={styles.project}
       Icon={NorthEastRoundedIcon}
       url={`/project/${project.id}`}
+      linkTarget={""}
     />
   );
 };

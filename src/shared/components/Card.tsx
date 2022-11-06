@@ -73,6 +73,9 @@ const getStyles = ({ gradient }: { gradient: string }) => ({
       h1: {
         fontSize: 32,
       },
+      h3: {
+        fontSize: 24,
+      },
     },
   }),
 });
@@ -88,6 +91,7 @@ interface Props {
   Icon?: any;
   url?: string;
   renderNav?: () => ReactNode;
+  linkTarget?: string;
 }
 
 const Card = ({
@@ -101,6 +105,7 @@ const Card = ({
   Icon,
   url,
   renderNav,
+  linkTarget = "_",
 }: Props) => {
   const styles = useMemo(() => getStyles({ gradient }), [gradient]);
   return (
@@ -108,7 +113,7 @@ const Card = ({
       {({ css, cx }) => (
         <div css={cx(css(styles.wrapper), css(className))}>
           {Icon && (
-            <a css={styles.iconWrapper} href={url} target="_">
+            <a css={styles.iconWrapper} href={url} target={linkTarget}>
               <Icon />
             </a>
           )}
