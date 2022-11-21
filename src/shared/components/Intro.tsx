@@ -26,6 +26,9 @@ const styles = {
       width: "auto",
     },
   }),
+  paragraph: css({
+    marginTop: 0,
+  }),
 };
 
 const Intro = () => {
@@ -41,7 +44,7 @@ const Intro = () => {
         className={styles.firstCard}
         gradient={Gradients.green}
         renderNav={() => (
-          <p>
+          <p css={styles.paragraph}>
             I am proficient with Web Application Architecture and have worked
             with a good number of successful development teams to deploy various
             web/mobile applications to the cloud. Please check out some of my

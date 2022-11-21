@@ -1,3 +1,7 @@
+### Description
+
+Personal website built with React, Vite, Emotion and Typescript.
+
 ### Running
 `npm run dev`
 

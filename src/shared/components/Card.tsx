@@ -62,12 +62,14 @@ const getStyles = ({ gradient }: { gradient: string }) => ({
     maxWidth: "100%",
     maxHeight: "100%",
     width: "auto",
+    overflow: "hidden",
   }),
   content: css({
     display: "flex",
     flexDirection: "column",
     alignItems: "baseline",
     width: "100%",
+    height: "100%",
     [Breakpoints.sm]: {
       display: "block",
       h1: {

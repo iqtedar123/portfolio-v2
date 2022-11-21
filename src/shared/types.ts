@@ -5,4 +5,5 @@ export type ProjectItem = {
   keywords?: string[];
   link?: string;
   id: string;
+  rank?: number;
 };

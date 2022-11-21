@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Intro from "../shared/components/Intro";
-import { collection, getDocs } from "firebase/firestore/lite";
+import { collection, getDocs, orderBy, query } from "firebase/firestore/lite";
 import { ProjectItem } from "../shared/types";
 import { db } from "../main";
 import Projects from "../shared/components/Projects";
@@ -17,7 +17,8 @@ const fetchProjects = async (setProjects: {
   const projectsRef = collection(db, "Projects");
   try {
     const projects: ProjectItem[] = [];
-    const snapshot = await getDocs(projectsRef);
+    const q = query(projectsRef, orderBy("rank"));
+    const snapshot = await getDocs(q);
     snapshot.forEach((doc) => {
       const project = doc.data() as ProjectItem;
       project.id = doc.id;
