@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import { Gradients } from "../utils/Gradients";
 import Card from "./Card";
 import ContactNav from "./ContactNav";
+import { useTheme } from "../contexts/ThemeContext";
 
 const styles = {
   wrapper: css({
@@ -13,6 +14,8 @@ const styles = {
 };
 
 const ContactCard = () => {
+  const { theme } = useTheme();
+
   return (
     <section css={styles.wrapper}>
       <Card
@@ -22,7 +25,11 @@ const ContactCard = () => {
         }
         titleHeadingLevel={2}
         subHeadingLevel={4}
-        gradient={Gradients.greenBlue}
+        gradient={
+          theme === "dark"
+            ? Gradients.purplePurplePurpleGreen
+            : Gradients.greenBlue
+        }
         renderNav={() => <ContactNav />}
       />
     </section>

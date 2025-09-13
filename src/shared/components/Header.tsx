@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
+import ThemeToggle from "./ThemeToggle";
 
 const styles = {
   header: css({
@@ -39,10 +40,24 @@ const styles = {
     listStyle: "none",
     display: "flex",
     gap: 24,
+    alignItems: "center",
   }),
   inactiveLink: css({
     fontWeight: 500,
     opacity: 0.5,
+  }),
+  link: css({
+    color: "inherit",
+    textDecoration: "none",
+    transition: "opacity 0.3s ease",
+
+    '[data-theme="dark"] &': {
+      color: "#ffffff",
+    },
+
+    '[data-theme="light"] &': {
+      color: "#000000",
+    },
   }),
 };
 
@@ -71,11 +86,15 @@ const Header = () => {
       <nav css={styles.nav}>
         {navItems.map(({ name, url, key }) => (
           <li key={key}>
-            <a href={url} css={currentURL !== url ? styles.inactiveLink : ""}>
+            <a
+              href={url}
+              css={[styles.link, currentURL !== url ? styles.inactiveLink : ""]}
+            >
               {name}
             </a>
           </li>
         ))}
+        <ThemeToggle />
       </nav>
     </header>
   );

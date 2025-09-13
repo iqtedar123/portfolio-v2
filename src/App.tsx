@@ -3,6 +3,7 @@
 import "./App.css";
 import { css } from "@emotion/react";
 import Header from "./shared/components/Header";
+import { ThemeProvider } from "./shared/contexts/ThemeContext";
 
 const styles = {
   wrapper: css({
@@ -19,10 +20,12 @@ type Props = {
 
 const App: React.FC<Props> = ({ children }) => {
   return (
-    <div css={styles.wrapper}>
-      <Header />
-      {children}
-    </div>
+    <ThemeProvider>
+      <div css={styles.wrapper}>
+        <Header />
+        {children}
+      </div>
+    </ThemeProvider>
   );
 };
 

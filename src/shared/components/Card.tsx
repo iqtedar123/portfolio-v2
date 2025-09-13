@@ -54,9 +54,15 @@ const getStyles = ({
     alignItems: "center",
     justifyContent: "center",
     color: "black",
+    transition: "background-color 0.3s ease, color 0.3s ease",
     [Breakpoints.sm]: {
       width: 30,
       height: 30,
+    },
+
+    '[data-theme="dark"] &': {
+      backgroundColor: "#2a2a2a",
+      color: "#ffffff",
     },
   }),
   image: css({
@@ -77,6 +83,16 @@ const getStyles = ({
     alignItems: "baseline",
     width: "100%",
     height: "100%",
+    color: "inherit",
+
+    '[data-theme="dark"] &': {
+      color: "#ffffff",
+    },
+
+    '[data-theme="light"] &': {
+      color: "#000000",
+    },
+
     [Breakpoints.sm]: {
       display: "block",
       h1: {
@@ -86,9 +102,24 @@ const getStyles = ({
         fontSize: 24,
       },
     },
+
+    // Ensure all heading elements inherit the proper color
+    "& h1, & h2, & h3, & h4, & h5, & h6": {
+      color: "inherit",
+    },
   }),
   paragraphText: css({
     width: "100%",
+    color: "inherit",
+    transition: "color 0.3s ease",
+
+    '[data-theme="dark"] &': {
+      color: "#ffffff",
+    },
+
+    '[data-theme="light"] &': {
+      color: "#000000",
+    },
   }),
 });
 

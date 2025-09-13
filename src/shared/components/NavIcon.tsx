@@ -19,6 +19,21 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    color: "black",
+    transition: "all 0.3s ease",
+
+    "&:hover": {
+      transform: "scale(1.1)",
+    },
+
+    '[data-theme="dark"] &': {
+      backgroundColor: "#2a2a2a",
+      color: "#ffffff",
+
+      "&:hover": {
+        backgroundColor: "#3a3a3a",
+      },
+    },
   }),
 };
 
