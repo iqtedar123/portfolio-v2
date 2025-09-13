@@ -8,6 +8,7 @@ import reportWebVitals from "./reportWebVitals";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore/lite";
 import ProjectPage from "./pages/ProjectPage";
+import ContactPage from "./pages/ContactPage";
 
 const config = {
   apiKey: "AIzaSyDYl9whh-cQ7V9B6MNByR7mZqmPqXcx-0M",
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/project/:id",
     element: <ProjectPage />,
+  },
+  {
+    path: "/contact",
+    element: <ContactPage />,
   },
 ]);
 

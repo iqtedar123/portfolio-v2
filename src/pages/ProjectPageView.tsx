@@ -12,6 +12,7 @@ import { Gradients } from "../shared/utils/Gradients";
 import Keywords from "../shared/components/Keywords";
 import NorthEastRoundedIcon from "@mui/icons-material/NorthEastRounded";
 import { Breakpoints } from "../shared/utils/breakpoints";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 
 const fetchProject = async (
   id: string,
@@ -50,6 +51,29 @@ const styles = {
   keywords: css({
     color: "white",
   }),
+  header: css({
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  }),
+  backButton: css({
+    border: "none",
+    cursor: "pointer",
+    color: "black",
+    backgroundColor: "transparent",
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+    padding: 0,
+    margin: 0,
+    ":hover": {
+      color: "red",
+    },
+  }),
+  title: css({
+    flex: 1,
+  }),
 };
 
 const ProjectPageView = () => {
@@ -63,7 +87,11 @@ const ProjectPageView = () => {
 
   return (
     <div css={styles.wrapper}>
-      <h1>{project?.title}</h1>
+      <button css={styles.backButton} onClick={() => window.history.back()}>
+        <ArrowBackRoundedIcon />
+        Back to Projects
+      </button>
+      <h1 css={styles.title}>{project?.title}</h1>
       <section>
         <Card
           title={project?.description!}

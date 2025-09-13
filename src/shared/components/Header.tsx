@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import { useLocation } from "react-router";
 
 const styles = {
   header: css({
@@ -52,6 +51,11 @@ const navItems = [
     name: "Home",
     url: "/",
     key: "Home",
+  },
+  {
+    name: "Contact",
+    url: "/contact",
+    key: "Contact",
   },
 ];
 

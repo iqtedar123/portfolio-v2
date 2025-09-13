@@ -6,7 +6,13 @@ import { Breakpoints } from "../utils/breakpoints";
 import { Gradients } from "../utils/Gradients";
 import { Heading, HeadingLevel } from "../utils/Headings";
 
-const getStyles = ({ gradient }: { gradient: string }) => ({
+const getStyles = ({
+  gradient,
+  hasUrl,
+}: {
+  gradient: string;
+  hasUrl: boolean;
+}) => ({
   wrapper: css({
     translate: "none",
     rotate: "none",
@@ -26,13 +32,14 @@ const getStyles = ({ gradient }: { gradient: string }) => ({
     transformOrigin: "0 0",
     transition: " transform .25s, visibility .25s ease-in",
     ":hover": {
-      opacity: 0.5,
+      opacity: 0.75,
+      ...(hasUrl && { cursor: "pointer" }),
       img: {
         transform: "scale(1.005)",
       },
     },
     ":focus": {
-      opacity: 0.5,
+      opacity: 0.75,
     },
   }),
   iconWrapper: css({
@@ -80,6 +87,9 @@ const getStyles = ({ gradient }: { gradient: string }) => ({
       },
     },
   }),
+  paragraphText: css({
+    width: "100%",
+  }),
 });
 
 interface Props {
@@ -94,6 +104,7 @@ interface Props {
   url?: string;
   renderNav?: () => ReactNode;
   linkTarget?: string;
+  paragraph?: string;
 }
 
 const Card = ({
@@ -108,12 +119,23 @@ const Card = ({
   url,
   renderNav,
   linkTarget = "_",
+  paragraph,
 }: Props) => {
-  const styles = useMemo(() => getStyles({ gradient }), [gradient]);
+  const styles = useMemo(
+    () => getStyles({ gradient, hasUrl: !!url }),
+    [gradient, url]
+  );
   return (
     <ClassNames>
       {({ css, cx }) => (
-        <div css={cx(css(styles.wrapper), css(className))}>
+        <div
+          css={cx(css(styles.wrapper), css(className))}
+          onClick={() => {
+            if (url) {
+              window.location.href = url;
+            }
+          }}
+        >
           {Icon && (
             <a css={styles.iconWrapper} href={url} target={linkTarget}>
               <Icon />
@@ -126,6 +148,7 @@ const Card = ({
             {subHeading && (
               <Heading headingLevel={subHeadingLevel}>{subHeading}</Heading>
             )}
+            {paragraph && <p css={styles.paragraphText}>{paragraph}</p>}
             {image && <img src={image} css={styles.image} />}
           </div>
           {renderNav && renderNav()}

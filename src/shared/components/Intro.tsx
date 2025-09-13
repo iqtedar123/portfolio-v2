@@ -43,14 +43,10 @@ const Intro = () => {
         subHeadingLevel={4}
         className={styles.firstCard}
         gradient={Gradients.green}
-        renderNav={() => (
-          <p css={styles.paragraph}>
-            I am proficient with Web Application Architecture and have worked
-            with a good number of successful development teams to deploy various
-            web/mobile applications to the cloud. Please check out some of my
-            past public projects.
-          </p>
-        )}
+        paragraph={`I am proficient with Web Application Architecture and have worked
+with a good number of successful development teams to deploy various
+web/mobile applications to the cloud. Please check out some of my
+past public projects.`}
       />
       <ProfilePictureCard imageSrc={imgUrl} />
     </section>
