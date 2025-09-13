@@ -21,14 +21,14 @@ const getStyles = (textColor: string) => ({
   }),
 });
 
-const Project = ({ project }: { project: ProjectItem }) => {
-  const gradientKeys = Object.keys(Gradients);
-  const index = Math.floor(Math.random() * gradientKeys.length);
-  const gradient = gradientKeys[index];
-  const styles = useMemo(
-    () => getStyles(TextColors[gradientKeys[index]]),
-    [gradient]
-  );
+const Project = ({
+  project,
+  gradient,
+}: {
+  project: ProjectItem;
+  gradient: string;
+}) => {
+  const styles = useMemo(() => getStyles(TextColors[gradient]), [gradient]);
   return (
     <Card
       title={project.title}
