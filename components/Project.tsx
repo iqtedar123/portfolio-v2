@@ -1,16 +1,18 @@
 /** @jsxImportSource @emotion/react */
 
+"use client";
+
 import { css } from "@emotion/react";
-import { ProjectItem } from "../types";
-import { Gradients, TextColors } from "../utils/Gradients";
+import { ProjectItem } from "@/lib/types";
+import { Gradients, TextColors } from "@/lib/utils/Gradients";
 import Card from "./Card";
 import NorthEastRoundedIcon from "@mui/icons-material/NorthEastRounded";
-import { Breakpoints } from "../utils/breakpoints";
+import { Breakpoints } from "@/lib/utils/breakpoints";
 import { useMemo } from "react";
 
 const getStyles = (textColor: string) => ({
   project: css({
-    width: `calc(40%)`,
+    width: "calc(40%)",
     height: 400,
     alignItems: "baseline",
     color: textColor,
@@ -29,6 +31,7 @@ const Project = ({ project }: { project: ProjectItem }) => {
     () => getStyles(TextColors[gradientKeys[index]]),
     [gradient]
   );
+
   return (
     <Card
       title={project.title}
@@ -36,8 +39,8 @@ const Project = ({ project }: { project: ProjectItem }) => {
       image={project.image}
       className={styles.project}
       Icon={NorthEastRoundedIcon}
-      url={`/project/${project.id}`}
-      linkTarget={""}
+      url={`/project/${project.slug}`}
+      linkTarget=""
     />
   );
 };

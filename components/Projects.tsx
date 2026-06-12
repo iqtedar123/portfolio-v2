@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
+"use client";
+
 import { css } from "@emotion/react";
-import { ProjectItem } from "../types";
+import { ProjectItem } from "@/lib/types";
 import Project from "./Project";
 
 const styles = {

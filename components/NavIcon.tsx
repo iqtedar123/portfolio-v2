@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
+"use client";
+
 import { css } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { IconDefinition, IconName } from "@fortawesome/fontawesome-svg-core";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 interface Props {
   icon: IconDefinition;

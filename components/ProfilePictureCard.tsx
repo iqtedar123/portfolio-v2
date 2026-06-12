@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
+"use client";
+
 import { css } from "@emotion/react";
 import { useMemo } from "react";
-import { Breakpoints } from "../utils/breakpoints";
-import { Gradients } from "../utils/Gradients";
-import { Heading, HeadingLevel } from "../utils/Headings";
+import { Breakpoints } from "@/lib/utils/breakpoints";
+import { Gradients } from "@/lib/utils/Gradients";
 
 const getStyles = ({ gradient }: { gradient: string }) => ({
   wrapper: css({
@@ -41,9 +42,16 @@ interface Props {
 
 const ProfilePictureCard = ({ imageSrc, gradient = Gradients.pink }: Props) => {
   const styles = useMemo(() => getStyles({ gradient }), [gradient]);
+
   return (
     <div css={styles.wrapper}>
-      <img src={imageSrc} width={"100%"} height={"100%"} css={styles.image} />
+      <img
+        src={imageSrc}
+        alt="Profile"
+        width="100%"
+        height="100%"
+        css={styles.image}
+      />
     </div>
   );
 };

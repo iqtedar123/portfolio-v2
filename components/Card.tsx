@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
+"use client";
+
 import { ClassNames, css, SerializedStyles } from "@emotion/react";
 import { ReactNode, useMemo } from "react";
-import { Breakpoints } from "../utils/breakpoints";
-import { Gradients } from "../utils/Gradients";
-import { Heading, HeadingLevel } from "../utils/Headings";
+import { Breakpoints } from "@/lib/utils/breakpoints";
+import { Gradients } from "@/lib/utils/Gradients";
+import { Heading, HeadingLevel } from "@/lib/utils/Headings";
 
 const getStyles = ({ gradient }: { gradient: string }) => ({
   wrapper: css({
@@ -90,7 +92,7 @@ interface Props {
   gradient?: string;
   image?: string;
   className?: SerializedStyles;
-  Icon?: any;
+  Icon?: React.ComponentType;
   url?: string;
   renderNav?: () => ReactNode;
   linkTarget?: string;
@@ -110,6 +112,7 @@ const Card = ({
   linkTarget = "_",
 }: Props) => {
   const styles = useMemo(() => getStyles({ gradient }), [gradient]);
+
   return (
     <ClassNames>
       {({ css, cx }) => (
@@ -126,7 +129,7 @@ const Card = ({
             {subHeading && (
               <Heading headingLevel={subHeadingLevel}>{subHeading}</Heading>
             )}
-            {image && <img src={image} css={styles.image} />}
+            {image && <img src={image} alt="" css={styles.image} />}
           </div>
           {renderNav && renderNav()}
         </div>

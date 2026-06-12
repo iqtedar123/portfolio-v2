@@ -1,7 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
+"use client";
+
 import { css } from "@emotion/react";
-import { useLocation } from "react-router";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const styles = {
   header: css({
@@ -53,23 +56,29 @@ const navItems = [
     url: "/",
     key: "Home",
   },
+  {
+    name: "Contact",
+    url: "/contact",
+    key: "Contact",
+  },
 ];
 
 const Header = () => {
-  const currentURL = window.location.pathname;
+  const pathname = usePathname();
+
   return (
     <header css={styles.header}>
-      <a css={styles.logoLink} href="/">
+      <Link css={styles.logoLink} href="/">
         <div css={styles.logo}>
           <div css={styles.circle}>MC</div>
         </div>
-      </a>
+      </Link>
       <nav css={styles.nav}>
         {navItems.map(({ name, url, key }) => (
           <li key={key}>
-            <a href={url} css={currentURL !== url ? styles.inactiveLink : ""}>
+            <Link href={url} css={pathname !== url ? styles.inactiveLink : ""}>
               {name}
-            </a>
+            </Link>
           </li>
         ))}
       </nav>
