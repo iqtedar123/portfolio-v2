@@ -29,7 +29,7 @@ type SocialLinkFields = {
 type ProjectFields = {
   title: string;
   description: string;
-  image: string;
+  screen?: Asset;
   keywords?: string[];
   link?: string;
   slug: string;
@@ -54,20 +54,12 @@ function getClient() {
   });
 }
 
-function assetUrl(value: Asset | string | undefined): string {
-  if (!value) {
+function assetUrl(asset: Asset | undefined): string {
+  if (!asset?.fields?.file) {
     return "";
   }
 
-  if (typeof value === "string") {
-    return value.startsWith("//") ? `https:${value}` : value;
-  }
-
-  if (!value.fields?.file) {
-    return "";
-  }
-
-  const file = value.fields.file as { url?: string };
+  const file = asset.fields.file as { url?: string };
   const url = file.url;
 
   if (!url) {
@@ -150,6 +142,7 @@ export async function getProjects(): Promise<ProjectItem[]> {
   const response = await client.getEntries({
     content_type: "portfolioProject",
     order: ["fields.rank"],
+    include: 2,
   });
 
   return response.items.map((entry) => {
@@ -160,7 +153,7 @@ export async function getProjects(): Promise<ProjectItem[]> {
       slug: fields.slug,
       title: fields.title,
       description: fields.description,
-      image: assetUrl(fields.image),
+      image: assetUrl(fields.screen),
       keywords: fields.keywords,
       link: fields.link,
       rank: fields.rank,
@@ -176,6 +169,7 @@ export async function getProjectBySlug(
     content_type: "portfolioProject",
     "fields.slug": slug,
     limit: 1,
+    include: 2,
   });
 
   const entry = response.items[0];
@@ -191,7 +185,7 @@ export async function getProjectBySlug(
     slug: fields.slug,
     title: fields.title,
     description: fields.description,
-    image: assetUrl(fields.image),
+    image: assetUrl(fields.screen),
     keywords: fields.keywords,
     link: fields.link,
     rank: fields.rank,

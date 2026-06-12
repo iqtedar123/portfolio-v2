@@ -20,6 +20,7 @@ const SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
 const MANAGEMENT_TOKEN = process.env.CONTENTFUL_MANAGEMENT_TOKEN;
 const ENVIRONMENT_ID = process.env.CONTENTFUL_ENVIRONMENT || "master";
 const CREDENTIALS_PATH = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+const LOCALE = "en-US";
 
 if (!SPACE_ID || !MANAGEMENT_TOKEN || !CREDENTIALS_PATH) {
   console.error(
@@ -39,6 +40,48 @@ if (!admin.apps.length) {
 const db = admin.firestore();
 const contentfulClient = createClient({ accessToken: MANAGEMENT_TOKEN });
 
+function fileNameFromUrl(url, slug) {
+  const pathname = new URL(url).pathname;
+  const ext = pathname.split(".").pop() || "png";
+  return `${slug}.${ext}`;
+}
+
+async function uploadImageAsset(environment, { url, title, slug }) {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Failed to download image (${response.status}): ${url}`);
+  }
+
+  const buffer = Buffer.from(await response.arrayBuffer());
+  const contentType = response.headers.get("content-type") || "image/png";
+  const fileName = fileNameFromUrl(url, slug);
+
+  const upload = await environment.createUpload({ file: buffer });
+  const asset = await environment.createAsset({
+    fields: {
+      title: { [LOCALE]: title },
+      file: {
+        [LOCALE]: {
+          contentType,
+          fileName,
+          uploadFrom: {
+            sys: {
+              type: "Link",
+              linkType: "Upload",
+              id: upload.sys.id,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const processed = await asset.processForAllLocales();
+  const published = await processed.publish();
+  return published.sys.id;
+}
+
 async function findExistingProject(environment, slug) {
   const entries = await environment.getEntries({
     content_type: "portfolioProject",
@@ -57,23 +100,34 @@ async function createProjectEntry(environment, docId, data) {
     return;
   }
 
-  const entry = await environment.createEntry("portfolioProject", {
-    fields: {
-      title: { "en-US": data.title },
-      description: { "en-US": data.description },
-      slug: { "en-US": slug },
-      link: data.link ? { "en-US": data.link } : undefined,
-      keywords: data.keywords ? { "en-US": data.keywords } : undefined,
-      rank: data.rank != null ? { "en-US": data.rank } : undefined,
-    },
-  });
+  const fields = {
+    title: { [LOCALE]: data.title },
+    description: { [LOCALE]: data.description },
+    slug: { [LOCALE]: slug },
+    link: data.link ? { [LOCALE]: data.link } : undefined,
+    keywords: data.keywords ? { [LOCALE]: data.keywords } : undefined,
+    rank: data.rank != null ? { [LOCALE]: data.rank } : undefined,
+  };
 
-  if (data.image && data.image.startsWith("http")) {
-    console.warn(
-      `Project "${slug}" has external image URL. Upload to Contentful manually: ${data.image}`
-    );
+  if (data.image?.startsWith("http")) {
+    const assetId = await uploadImageAsset(environment, {
+      url: data.image,
+      title: `${data.title} screenshot`,
+      slug,
+    });
+
+    fields.screen = {
+      [LOCALE]: {
+        sys: {
+          type: "Link",
+          linkType: "Asset",
+          id: assetId,
+        },
+      },
+    };
   }
 
+  const entry = await environment.createEntry("portfolioProject", { fields });
   await entry.publish();
   console.log(`Migrated project "${slug}".`);
 }
@@ -94,7 +148,6 @@ async function main() {
   }
 
   console.log(`Migration complete. Processed ${snapshot.size} project(s).`);
-  console.log("Upload project images as Contentful assets and link them to entries.");
 }
 
 main().catch((error) => {

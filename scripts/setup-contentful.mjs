@@ -33,14 +33,38 @@ if (!SPACE_ID || !MANAGEMENT_TOKEN) {
 
 const client = createClient({ accessToken: MANAGEMENT_TOKEN });
 
+function validateProjectScreenField(contentType) {
+  const screenField = contentType.fields.find((field) => field.id === "screen");
+
+  if (!screenField) {
+    console.error('portfolioProject is missing a "screen" field.');
+    return false;
+  }
+
+  if (screenField.type !== "Link" || screenField.linkType !== "Asset") {
+    console.error(
+      'portfolioProject "screen" must be a Link to Asset (Media field).'
+    );
+    return false;
+  }
+
+  return true;
+}
+
 async function main() {
   const space = await client.getSpace(SPACE_ID);
   const environment = await space.getEnvironment(ENVIRONMENT_ID);
 
   for (const contentTypeId of REQUIRED_CONTENT_TYPES) {
     try {
-      await environment.getContentType(contentTypeId);
+      const contentType = await environment.getContentType(contentTypeId);
       console.log(`Content type "${contentTypeId}" found.`);
+
+      if (contentTypeId === "portfolioProject") {
+        if (!validateProjectScreenField(contentType)) {
+          process.exitCode = 1;
+        }
+      }
     } catch {
       console.error(`Missing content type "${contentTypeId}".`);
       process.exitCode = 1;
@@ -48,7 +72,7 @@ async function main() {
   }
 
   if (process.exitCode === 1) {
-    console.error("Create the missing content types in Contentful before running the app.");
+    console.error("Fix the missing or invalid content types in Contentful before running the app.");
     return;
   }
 
