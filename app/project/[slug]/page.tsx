@@ -1,5 +1,11 @@
 import ProjectPageView from "@/components/ProjectPageView";
-import { getProjectBySlug, getProjectSlugs } from "@/lib/contentful";
+import {
+  getAdjacentProjects,
+  getContactInformation,
+  getProjectBySlug,
+  getProjectSlugs,
+  getProjects,
+} from "@/lib/contentful";
 import { notFound } from "next/navigation";
 
 export const revalidate = 3600;
@@ -20,11 +26,25 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+
+  const [project, projects, contact] = await Promise.all([
+    getProjectBySlug(slug),
+    getProjects(),
+    getContactInformation(),
+  ]);
 
   if (!project) {
     notFound();
   }
 
-  return <ProjectPageView project={project} />;
+  const { prev, next } = getAdjacentProjects(projects, slug);
+
+  return (
+    <ProjectPageView
+      project={project}
+      prevProject={prev}
+      nextProject={next}
+      socialLinks={contact.socialLinks}
+    />
+  );
 }

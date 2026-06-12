@@ -196,3 +196,19 @@ export async function getProjectSlugs(): Promise<string[]> {
   const projects = await getProjects();
   return projects.map((project) => project.slug);
 }
+
+export function getAdjacentProjects(
+  projects: ProjectItem[],
+  slug: string
+): { prev: ProjectItem | null; next: ProjectItem | null } {
+  const index = projects.findIndex((project) => project.slug === slug);
+
+  if (index === -1) {
+    return { prev: null, next: null };
+  }
+
+  return {
+    prev: index > 0 ? projects[index - 1] : null,
+    next: index < projects.length - 1 ? projects[index + 1] : null,
+  };
+}

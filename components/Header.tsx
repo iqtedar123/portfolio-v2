@@ -61,6 +61,16 @@ const styles = {
   }),
   navLinkActive: css({
     color: theme.colors.accent,
+    position: "relative",
+    "::before": {
+      content: '""',
+      position: "absolute",
+      top: -8,
+      left: 0,
+      right: 0,
+      height: 2,
+      backgroundColor: theme.colors.accent,
+    },
   }),
   connectBtn: css({
     fontSize: 12,
@@ -80,14 +90,13 @@ const styles = {
 };
 
 const homeNavItems = [
-  { name: "Work", href: "/#work" },
-  { name: "Expertise", href: "/#expertise" },
-  { name: "About", href: "/#about" },
+  { name: "Work", href: "/#work", match: (path: string) => path.startsWith("/project/") },
 ];
 
 const Header = () => {
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const isProjectPage = pathname.startsWith("/project/");
 
   return (
     <header css={styles.header}>
@@ -97,10 +106,16 @@ const Header = () => {
 
       <nav>
         <ul css={styles.nav}>
-          {isHome ? (
-            homeNavItems.map(({ name, href }) => (
+          {isHome || isProjectPage ? (
+            homeNavItems.map(({ name, href, match }) => (
               <li key={name}>
-                <a css={styles.navLink} href={href}>
+                <a
+                  css={css([
+                    styles.navLink,
+                    match(pathname) && styles.navLinkActive,
+                  ])}
+                  href={href}
+                >
                   {name}
                 </a>
               </li>
