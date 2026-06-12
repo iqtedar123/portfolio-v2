@@ -36,6 +36,8 @@ type ProjectFields = {
   rank?: number;
 };
 
+const PROFILE_PICTURE_ASSET_ID = "1j8wXbpoPiSVhmWwpAGIGw";
+
 function getClient() {
   const spaceId = process.env.CONTENTFUL_SPACE_ID;
   const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN;
@@ -109,6 +111,13 @@ export async function getBanner(): Promise<BannerContent> {
     subHeadingLevel: toHeadingLevel(fields.subHeadingLevel),
     navText: fields.navText,
   };
+}
+
+export async function getProfilePictureUrl(): Promise<string> {
+  const client = getClient();
+  const asset = await client.getAsset(PROFILE_PICTURE_ASSET_ID);
+
+  return assetUrl(asset);
 }
 
 export async function getContactInformation(): Promise<ContactInformationContent> {

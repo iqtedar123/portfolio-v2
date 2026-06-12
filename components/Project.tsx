@@ -11,23 +11,23 @@ import { Breakpoints } from "@/lib/utils/breakpoints";
 
 const layoutPatterns = [
   css({
-    gridColumn: "1 / 8",
-    gridRow: "span 2",
+    gridColumn: "1",
+    gridRow: "1 / 3",
     [Breakpoints.md]: { gridColumn: "1", gridRow: "auto" },
   }),
   css({
-    gridColumn: "8 / 13",
-    gridRow: "span 1",
+    gridColumn: "2",
+    gridRow: "1 / 2",
     [Breakpoints.md]: { gridColumn: "1", gridRow: "auto" },
   }),
   css({
-    gridColumn: "1 / 6",
-    gridRow: "span 1",
+    gridColumn: "1",
+    gridRow: "3 / 4",
     [Breakpoints.md]: { gridColumn: "1", gridRow: "auto" },
   }),
   css({
-    gridColumn: "6 / 13",
-    gridRow: "span 2",
+    gridColumn: "2",
+    gridRow: "2 / 4",
     [Breakpoints.md]: { gridColumn: "1", gridRow: "auto" },
   }),
 ];
@@ -50,7 +50,8 @@ const styles = {
     flexDirection: "column",
     justifyContent: "space-between",
     overflow: "hidden",
-    minHeight: 180,
+    height: "100%",
+    minHeight: 0,
     transition: "border-color 0.25s ease, transform 0.25s ease",
     ":hover": {
       borderColor: theme.colors.accent,

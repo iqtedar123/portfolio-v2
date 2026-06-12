@@ -72,12 +72,12 @@ const styles = {
   }),
   grid: css({
     display: "grid",
-    gridTemplateColumns: "repeat(12, 1fr)",
-    gridAutoRows: "minmax(160px, auto)",
+    gridTemplateColumns: "repeat(2, 1fr)",
+    gridTemplateRows: "repeat(3, minmax(180px, 200px))",
     gap: 16,
     [Breakpoints.md]: {
       gridTemplateColumns: "1fr",
-      gridAutoRows: "auto",
+      gridTemplateRows: "repeat(4, minmax(180px, 200px))",
     },
   }),
 };

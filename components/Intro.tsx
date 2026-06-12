@@ -83,6 +83,13 @@ const styles = {
     overflow: "hidden",
     position: "relative",
   }),
+  portraitImage: css({
+    position: "absolute",
+    inset: 0,
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+  }),
   initials: css({
     fontSize: 72,
     fontWeight: 800,
@@ -142,9 +149,10 @@ function highlightTechMeister(title: string) {
 
 interface Props {
   banner: BannerContent;
+  profileImageUrl?: string;
 }
 
-const Intro = ({ banner }: Props) => {
+const Intro = ({ banner, profileImageUrl }: Props) => {
   return (
     <section id="about" css={styles.section}>
       <div css={styles.grid}>
@@ -157,7 +165,15 @@ const Intro = ({ banner }: Props) => {
 
         <div css={styles.portraitWrapper}>
           <div css={styles.portrait}>
-            <span css={styles.initials}>MC</span>
+            {profileImageUrl ? (
+              <img
+                src={profileImageUrl}
+                alt="Mohammad Chowdhry"
+                css={styles.portraitImage}
+              />
+            ) : (
+              <span css={styles.initials}>MC</span>
+            )}
             <div css={styles.focusCard}>
               <div css={styles.focusLabel}>Current focus</div>
               <div css={styles.focusText}>
