@@ -27,3 +27,5 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_MOHAMMAD_S_PORTFOLIO }}"
           channelId: live
           projectId: mohammad-s-portfolio
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
