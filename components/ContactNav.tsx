@@ -22,14 +22,19 @@ const styles = {
 
 const iconMap: Record<string, IconDefinition> = {
   linkedin: faLinkedin,
+  falinkedin: faLinkedin,
   github: faGithub,
+  fagithub: faGithub,
   twitter: faTwitter,
+  fatwitter: faTwitter,
   email: faEnvelope,
   envelope: faEnvelope,
+  faenvelope: faEnvelope,
 };
 
 function resolveIcon(iconName: string): IconDefinition {
-  return iconMap[iconName.toLowerCase()] ?? faEnvelope;
+  const key = iconName.toLowerCase().replace(/[^a-z]/g, "");
+  return iconMap[key] ?? faEnvelope;
 }
 
 function resolveHref(link: string, iconName: string): string {

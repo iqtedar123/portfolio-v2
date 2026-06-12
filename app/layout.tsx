@@ -4,8 +4,9 @@ import EmotionRegistry from "@/components/EmotionRegistry";
 import Header from "@/components/Header";
 
 export const metadata: Metadata = {
-  title: "Lets Code Together",
-  description: "Mohammad Chowdhry - Full Stack Developer Portfolio",
+  title: "TechMeister | Mohammad Chowdhry",
+  description:
+    "Full Stack Architect specializing in precision engineering and high-performance system architecture.",
 };
 
 export default function RootLayout({
