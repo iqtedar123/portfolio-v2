@@ -321,8 +321,8 @@ function highlightTitle(title: string) {
 }
 
 const INFO_ITEMS = [
-  { label: "Timezone", value: "GMT +1 (Remote First)" },
-  { label: "Office", value: "Berlin, DE" },
+  { label: "Timezone", value: "Eastern Time (ET)" },
+  { label: "Office", value: "Toronto, ON" },
   { label: "Typical Response", value: "< 24 Hours" },
 ] as const;
 
