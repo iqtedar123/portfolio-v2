@@ -5,8 +5,7 @@ Personal portfolio built with Next.js, Emotion, TypeScript, and Contentful CMS. 
 ### Setup
 
 1. Copy `.env.local.example` to `.env.local` and fill in Contentful credentials.
-2. Run `npm run setup:contentful` with `CONTENTFUL_MANAGEMENT_TOKEN` to create content types.
-3. Create and publish entries for `banner`, `contactInformation`, `socialLink`, and `portfolioProject` in Contentful (or run `npm run migrate:firestore` to import Firestore projects).
+2. Create and publish entries for `banner`, `contactInformation`, `socialLink`, and `portfolioProject` in Contentful.
 
 ### Running
 

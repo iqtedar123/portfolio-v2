@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "setup:contentful": "node scripts/setup-contentful.mjs",
-    "migrate:firestore": "node scripts/migrate-firestore-to-contentful.mjs"
+    "lint": "next lint"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
@@ -29,8 +27,6 @@
     "@types/node": "^22.10.2",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
-    "contentful-management": "^11.44.0",
-    "firebase-admin": "^13.0.1",
     "source-map-js": "^1.2.1",
     "typescript": "^5.7.2"
   },
